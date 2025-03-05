@@ -10,6 +10,11 @@ Sub-dir:
 *   models: contains all the files generated during the model training, predicating, and scoring.
 *   util: contains utility codes for predication cleanup and generating the visualization
 
+Note: under the 'models' directory
+*   _defmod_ori.py_: the original unmodified defmod codes
+*   _defmod_concat.py_: the modified defmod codes for the embeddings concatenation approach
+*   _models_ori.py_: the original unmodified model construction codes
+*   _models_concat.py_: the modified model construction codes for the embeddings concatenation approach
 
 Under the 'models' directory
   
@@ -25,17 +30,17 @@ Under the 'models' directory
 
 Typical files inside a specific model folder
 
-  *.pt files*: model related files saved during the training
+  _.pt files_: model related files saved during the training
 
-  *best_scores.txt*: the best loss 
+  _best_scores.txt_: the best loss 
 
-  *hparams.json*: the best hyperparameters
+  _hparams.json_: the best hyperparameters
 
-  *defmod_predictions_<name>.json*: the generated predication file before any cleanup
+  _defmod_predictions_<name>.json_: the generated predication file before any cleanup
 
-  *defmod_predictions_<name>_clean.json*: the generated predication file after the cleanup (i.e. removing unicode characters)
+  _defmod_predictions_<name>_clean.json_: the generated predication file after the cleanup (i.e. removing unicode characters)
 
-  *scores.txt*: the evaluation scores (BLEU scores and MoverScore)
+  _scores.txt_: the evaluation scores (BLEU scores and MoverScore)
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------
