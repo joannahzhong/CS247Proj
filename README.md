@@ -7,7 +7,6 @@ Root: codewoe
 Sub-dir: 
 
 *   code: contains the all the codes for model training, predicting, scoring, and etc.
-*   logs: can be used for storing logs generated during the training
 *   models: contains all the files generated during the model training, predicating, and scoring.
 *   util: contains utility codes for predication cleanup and generating the visualization
 
