@@ -47,4 +47,22 @@ Typical files inside a specific model folder
 
 ## Instructions on how to run the codes.
 
-TBD
+Environment Setup:
+Use the provided Dockerfile.gpu to build a docker image and then create a docker container using the built image. Note this docker file is tested on a windows computer which has cuda enabled. 
+
+To train a model:
+1. Select a model, i.e. the model which uses the all 3 embedding concatenation approach.
+  -Navigate to codwoe\code
+  -Rename models_concat.py to models.py
+  -Rename defmod_concat.py to defmod.py
+  -In the terminal, run the following command:
+    python3 baseline_archs/code/defmod.py --do_train \
+    --train_file data/en.train.json \
+    --dev_file data/en.dev.json \
+    --device cuda \
+    --source_arch electra sgns char\
+    --summary_logdir baseline_archs/models \
+    --save_dir baseline_archs/models \
+    --spm_model_path baseline_archs/models
+3. 
+
