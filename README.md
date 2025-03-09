@@ -57,7 +57,7 @@ Dataset:
 -Download "Reference data for scoring program". Exact "en.test.defmod.complete.json" from the download zip.
 -Place all the exacted json files into the data directory.
 
-
+Running the codes:
 1. To train a model:
   Select a model, i.e. the model which uses the all 3 embedding concatenation approach.
   -Navigate to codwoe\code
@@ -72,8 +72,10 @@ Dataset:
     --summary_logdir baseline_archs/models \
     --save_dir baseline_archs/models \
     --spm_model_path baseline_archs/models
+   
   Note:
-  -all the generated files during training will be saved in baseline_archs/models
+  -a new folder named "electra_sgns_char" will be created under models
+  -the generated files during training will be saved in baseline_archs/models/electra_sgns_char
   -for help with the defmod arguments, run:
    python3 baseline_archs/code/defmod.py --help
    
@@ -82,7 +84,12 @@ Dataset:
    python3 baseline_archs/code/defmod.py --do_pred \
     --test_file data/en.test.defmod.json \
     --device cuda \
-    --source_arch electra sgns \
-    --save_dir baseline_archs/models/defmod-baseline/electra_sgns \
-    --pred_file baseline_archs/models/defmod-baseline/electra_sgns/defmod_predictions_electra_sgns_v2.json	
+    --source_arch electra sgns char\
+    --save_dir baseline_archs/models/electra_sgns_char \
+    --pred_file baseline_archs/models/electra_sgns_char/your_pred_file_name.json
+   Note:
+   -the predication json file will contain unicode characters and/or seq token
+
+3. To clean up the prediction file before scoring:
+   -In the terminal, run the following command:
 
