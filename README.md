@@ -110,7 +110,7 @@ Use the provided Dockerfile.gpu to build a docker image and then create a docker
 ### 5. To generate the word cloud visualization:
   e.g. Generate Word Clouds for Ground Truth vs. Predicted Glosses 
    * In the terminal, run the following command:
-     python3 util/vis_word_cloud.py \
+     python3 util/vis_word_cloud_vs_gt.py \
 	    --ground_truth_file data/en.test.defmod.complete.json \
       --pred_file models/electra_sgns_char/your_pred_file_name_clean.json \
 	    --save_dir models/electra_sgns_char
