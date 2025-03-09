@@ -50,8 +50,16 @@ Typical files inside a specific model folder
 Environment Setup:
 Use the provided Dockerfile.gpu to build a docker image and then create a docker container using the built image. Note this docker file is tested on a windows computer which has cuda enabled. 
 
-To train a model:
-1. Select a model, i.e. the model which uses the all 3 embedding concatenation approach.
+Dataset:
+-Go to https://codwoe.atilf.fr/ 
+-Download "Train and development datasets". Exact "en.train.json" and "en.dev.json" from the download zip. 
+-Download "Test datasets". Exact "en.test.defmod.json" from the download zip.
+-Download "Reference data for scoring program". Exact "en.test.defmod.complete.json" from the download zip.
+-Place all the exacted json files into the data directory.
+
+
+1. To train a model:
+  Select a model, i.e. the model which uses the all 3 embedding concatenation approach.
   -Navigate to codwoe\code
   -Rename models_concat.py to models.py
   -Rename defmod_concat.py to defmod.py
@@ -64,5 +72,17 @@ To train a model:
     --summary_logdir baseline_archs/models \
     --save_dir baseline_archs/models \
     --spm_model_path baseline_archs/models
-3. 
+  Note:
+  -all the generated files during training will be saved in baseline_archs/models
+  -for help with the defmod arguments, run:
+   python3 baseline_archs/code/defmod.py --help
+   
+2. To make predication:
+  -In the terminal, run the following command:
+   python3 baseline_archs/code/defmod.py --do_pred \
+    --test_file data/en.test.defmod.json \
+    --device cuda \
+    --source_arch electra sgns \
+    --save_dir baseline_archs/models/defmod-baseline/electra_sgns \
+    --pred_file baseline_archs/models/defmod-baseline/electra_sgns/defmod_predictions_electra_sgns_v2.json	
 
