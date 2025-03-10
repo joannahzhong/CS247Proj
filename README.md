@@ -1,6 +1,12 @@
-## CS247 Project Gloss Definition
+# CS247 Project: Comparing Dictionaries and Word Embeddings
+This is based on https://github.com/TimotheeMickus/codwoe
 
-# Directory structure
+## What is this task?
+The CODWOE shared task compares two types of semantic descriptions: dictionary glosses and word embedding representations. Are these two types of representation equivalent? Can we generate one from the other? 
+This code experiment studies the subtrack: a definition modeling track (Noraset et al., 2017), where the model generates glosses from vectors. 
+
+
+# Our repository structure
 
 Root dir: codewoe
 
@@ -63,19 +69,20 @@ Use the provided Dockerfile.gpu to build a docker image and then create a docker
 
 ### 1. To train a model:
   Select a model, i.e. the model which uses the all 3 embedding concatenation approach.
-  * In your IDE, n
-  * Navigate to the code directory
-  * Rename models_concat.py to models.py
-  * Rename defmod_concat.py to defmod.py
+  * In your IDE, navigate to the code directory:
+	* rename models_concat.py to models.py
+	* rename defmod_concat.py to defmod.py
+
   * In the terminal, run the following command:
-    python3 code/defmod.py --do_train \
-    --train_file data/en.train.json \
-    --dev_file data/en.dev.json \
-    --device cuda \
-    --source_arch electra sgns char\
-    --summary_logdir models \
-    --save_dir models \
-    --spm_model_path models
+    
+     python3 code/defmod.py --do_train \
+       --train_file data/en.train.json \
+       --dev_file data/en.dev.json \
+       --device cuda \
+       --source_arch electra sgns char\
+       --summary_logdir models \
+       --save_dir models \
+       --spm_model_path models
    
   Note:
   * a new folder named "electra_sgns_char" will be automatically created under models
@@ -85,30 +92,34 @@ Use the provided Dockerfile.gpu to build a docker image and then create a docker
    
 ### 2. To make predication:
   * In the terminal, run the following command:
-   python3 code/defmod.py --do_pred \
-    --test_file data/en.test.defmod.json \
-    --device cuda \
-    --source_arch electra sgns char\
-    --save_dir models/electra_sgns_char \
-    --pred_file models/electra_sgns_char/your_pred_file_name.json
+    
+	python3 code/defmod.py --do_pred \
+	--test_file data/en.test.defmod.json \
+	--device cuda \
+	--source_arch electra sgns char\
+	--save_dir models/electra_sgns_char \
+	--pred_file models/electra_sgns_char/your_pred_file_name.json
 
   Note: the predication json file will contain unicode characters and/or seq token
 
 ### 3. To clean up the prediction file before scoring:
    * In the terminal, run the following command:
+     
      util/clean_defmod_predictions.py models/electra_sgns_char/your_pred_file_name.json
   
   Note: the cleaned predication file will be saved in the same directly as the original file, i.e. your_pred_file_name_clean.json
   
 ### 4. To score the prediction file:
    * In the terminal, run the following command:
+     
      python3 code/score.py \
-      models/electra_sgns_char/your_pred_file_name_clean.json \
-      --reference_files_dir data \
-      --output_file models/electra_sgns_char/scores.txt 
+	models/electra_sgns_char/your_pred_file_name_clean.json \
+	--reference_files_dir data \
+	--output_file models/electra_sgns_char/scores.txt 
 
 ### 5. To tune the model:
    * In the terminal, run the following command:
+     
      python3 baseline_archs/code/defmod.py --do_htune \
 	--train_file data/en.train.json \
 	--dev_file data/en.dev.json \
@@ -121,9 +132,10 @@ Use the provided Dockerfile.gpu to build a docker image and then create a docker
 ### 6. To generate the word cloud visualization:
   e.g. Generate Word Clouds for Ground Truth vs. Predicted Glosses 
    * In the terminal, run the following command:
+     
      python3 util/vis_word_cloud_vs_gt.py \
-	    --ground_truth_file data/en.test.defmod.complete.json \
-      --pred_file models/electra_sgns_char/your_pred_file_name_clean.json \
-	    --save_dir models/electra_sgns_char
+     	--ground_truth_file data/en.test.defmod.complete.json \
+     	--pred_file models/electra_sgns_char/your_pred_file_name_clean.json \
+     	--save_dir models/electra_sgns_char
 
      
