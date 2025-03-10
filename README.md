@@ -107,7 +107,18 @@ Use the provided Dockerfile.gpu to build a docker image and then create a docker
       --reference_files_dir data \
       --output_file models/electra_sgns_char/scores.txt 
 
-### 5. To generate the word cloud visualization:
+### 5. To tune the model:
+   * In the terminal, run the following command:
+     python3 baseline_archs/code/defmod.py --do_htune \
+	--train_file data/en.train.json \
+	--dev_file data/en.dev.json \
+	--device cuda \
+    	--source_arch electra sgns char\
+    	--summary_logdir models/electra_sgns_char/tune \
+    	--save_dir models/electra_sgns_char/tune \
+    	--spm_model_path models/electra_sgns_char/tune
+
+### 6. To generate the word cloud visualization:
   e.g. Generate Word Clouds for Ground Truth vs. Predicted Glosses 
    * In the terminal, run the following command:
      python3 util/vis_word_cloud_vs_gt.py \
